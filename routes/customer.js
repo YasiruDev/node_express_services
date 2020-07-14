@@ -2,6 +2,7 @@ const md5 = require('md5');
 const jwt = require('jwt-simple');
 const Customer = require('../models/customer');
 
+
 const customer = {
 
     singup: (req, res) => {
@@ -104,23 +105,7 @@ const customer = {
             }
         });
     },
-    upload: (req, res) => {
-        const {} = req.body;
-        console.log("req ==>",req.body);
-        console.log("req.files==>",req.files);
-        // const data ={
-        //     cId,
-        //     status:status,
-        //     updatedAt : new Date()
-        // }
-        // Customer.updateCustomer(data, (err, rows) => {
-        //     if (err) {
-        //         res.json({msg: err.message, status: false});
-        //     } else {
-        //         res.json({msg: 'You have successfully update customer', status: true, data: rows});
-        //     }
-        // });
-    },
+
 }
 
 module.exports = customer;

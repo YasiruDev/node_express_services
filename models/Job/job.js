@@ -53,6 +53,10 @@ const job = {
         const query = "INSERT INTO bid set ? ";
         db.query(query, data, next);
     },
+    update_pic: function (picData,next) {                      
+        var query = "INSERT INTO image set ?";
+        db.query(query, picData, next);
+    }, 
 
 }
 

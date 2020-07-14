@@ -22,7 +22,7 @@ router.post('/api/protected/customer/job-create', validator.createJob, job.creat
 router.patch('/api/protected/customer/approve-bid', validator.approveBid, job.update);
 router.get('/api/protected/customer/order-list',  job.orderHistory); 
 
-router.post('/api/protected/customer/upload', customer.upload);
+router.post('/api/protected/customer/upload', job.upload);
 
 //Supplier
 router.post('/api/supplier/signup', validator.signup, supplier.singup);
