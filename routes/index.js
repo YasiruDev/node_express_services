@@ -17,13 +17,17 @@ router.get('/api/protected/category/list', category.list);
 //customer
 router.post('/api/customer/signup', validator.signupCustomer, customer.singup);
 router.post('/api/customer/login', validator.login, customer.login);
+router.get('/api/protected/customer',  customer.customerDetails); 
+router.patch('/api/protected/customer', validator.updateCustomer, customer.updateCustomer); 
 
 router.post('/api/protected/customer/job-create', validator.createJob, job.create);
 router.patch('/api/protected/customer/approve-bid', validator.approveBid, job.update);
 router.get('/api/protected/customer/order-list',  job.orderHistory); 
-
+router.get('/api/protected/customer/bided-list',validator.checkCid, job.bidedList);
 router.post('/api/protected/customer/upload', job.upload);
 
+
+router.post('/api/protected/customer/rate-suplier',validator.validateRate, job.rateSupplier);
 //Supplier
 router.post('/api/supplier/signup', validator.signup, supplier.singup);
 router.post('/api/supplier/login', validator.login, supplier.login);

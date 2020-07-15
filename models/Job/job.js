@@ -33,6 +33,15 @@ const job = {
         WHERE supplier.id IS NULL OR bid.id IS NOT NULL`;
         db.query(query, null, next);
     },
+    bidedList: (data, next) => {
+        const query = `SELECT job.id,bid.sId,job.title,job.desc,job.mobile,job.address,
+        job.city,job.updatedAt,job.status,bid.value,bid.createdAt
+        FROM job
+        INNER JOIN bid 
+            ON job.id = bid.jId
+        WHERE job.cId = ? AND job.status=?`;
+        db.query(query, [data.cId,data.status], next);
+    },
     selectJob: (data, next) => {
         const query = "SELECT * FROM job WHERE id= ? ";
         db.query(query, data.id, next);
@@ -55,6 +64,10 @@ const job = {
     },
     update_pic: function (picData,next) {                      
         var query = "INSERT INTO image set ?";
+        db.query(query, picData, next);
+    }, 
+    rateSupplier: function (picData,next) {                      
+        var query = "INSERT INTO rating set ?";
         db.query(query, picData, next);
     }, 
 

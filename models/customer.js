@@ -21,7 +21,8 @@ const customer = {
         db.query(query, null, next);
     },
     customerById: (data, next) => {
-        const query = "SELECT * FROM customer WHERE id=? ";
+        
+        const query = "SELECT id,cName,email,nic,status,createdAt,updatedAt FROM customer WHERE id=? ";
         db.query(query, data.cId, next);
     },
     editCustomer: (data, next) => {

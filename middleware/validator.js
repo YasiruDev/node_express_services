@@ -70,14 +70,14 @@ const validator = {
         }
     },
     createJob: (req, res, next) => {
-        const { title,catId, desc, address, city, image } = req.body;
+        const { title, catId, desc, address, city, image } = req.body;
 
         if (title == '' || title == null) {
             res.json({ msg: "Title required", status: false });
-        } 
+        }
         else if (catId == '' || catId == null) {
             res.json({ msg: "Category required", status: false });
-        }else if (desc == '' || desc == null) {
+        } else if (desc == '' || desc == null) {
             res.json({ msg: "Description required", status: false });
         } else if (address == '' || address == null) {
             res.json({ msg: "Address required", status: false });
@@ -85,9 +85,10 @@ const validator = {
         else if (city == '' || city == null) {
             res.json({ msg: "City required", status: false });
         }
-        else if (image == '' || image == null) {
-            res.json({ msg: "Image required", status: false });
-        } else {
+        // else if (image == '' || image == null) {
+        //     res.json({ msg: "Image required", status: false });
+        // } 
+        else {
             next();
         }
     },
@@ -139,9 +140,9 @@ const validator = {
         }
     },
     checkCid: (req, res, next) => {
-        const { cId } = req.query;
-        if (cId === '' || cId === null) {
-            res.json({ msg: "Customer Id required", status: false });
+        const { status } = req.query;
+        if (!status) {
+            res.json({ msg: "Status required", status: false });
         }
         else {
             next();
@@ -158,7 +159,7 @@ const validator = {
     },
     changeStatus: (req, res, next) => {
         console.log("change status---->", req.body)
-        const { status , sId } = req.body;
+        const { status, sId } = req.body;
         if (status === '' || status === null) {
             res.json({ msg: "Status required", status: false });
         } else if (sId == '' || sId == null) {
@@ -168,8 +169,22 @@ const validator = {
             next();
         }
     },
+    validateRate: (req, res, next) => {
+        const { jId,rate, sId } = req.body;
+        if (!jId) {
+            res.json({ msg: "Job Id required", status: false });
+        } else if (!sId) {
+            res.json({ msg: "Supplier required", status: false });
+        }
+        else if (!rate) {
+            res.json({ msg: "Rate required", status: false });
+        }
+        else {
+            next();
+        }
+    },
     editSupplier: (req, res, next) => {
-        const { sId, sName,mobile } = req.body;
+        const { sId, sName, mobile } = req.body;
 
         if (sId === '' || sId === null) {
             res.json({ msg: "Supplier id required", status: false });
@@ -185,7 +200,7 @@ const validator = {
         }
     },
     editCustomer: (req, res, next) => {
-        const { cId, cName,email } = req.body;
+        const { cId, cName, email } = req.body;
 
         if (cId === '' || cId === null) {
             res.json({ msg: "Customer id required", status: false });
@@ -200,8 +215,21 @@ const validator = {
             next();
         }
     },
+    updateCustomer: (req, res, next) => {
+        const { cName, email } = req.body;
+
+        if (!cName ) {
+            res.json({ msg: "Customer Name required", status: false });
+        }
+        else if (!email) {
+            res.json({ msg: "Email required", status: false });
+        }
+        else {
+            next();
+        }
+    },
     changeCustomerStatus: (req, res, next) => {
-        const { status , cId } = req.body;
+        const { status, cId } = req.body;
         if (status === '' || status === null) {
             res.json({ msg: "Status required", status: false });
         } else if (cId == '' || cId == null) {
@@ -212,7 +240,7 @@ const validator = {
         }
     },
     changeCityStatus: (req, res, next) => {
-        const { status , cityId } = req.body;
+        const { status, cityId } = req.body;
         if (status === '' || status === null) {
             res.json({ msg: "Status required", status: false });
         } else if (cityId == '' || cityId == null) {
@@ -226,7 +254,7 @@ const validator = {
         const { city } = req.body;
         if (city === '' || city === null) {
             res.json({ msg: "City required", status: false });
-        } 
+        }
         else {
             next();
         }
@@ -235,7 +263,7 @@ const validator = {
         const { category } = req.body;
         if (category === '' || category === null) {
             res.json({ msg: "Category required", status: false });
-        } 
+        }
         else {
             next();
         }
@@ -248,13 +276,13 @@ const validator = {
         }
         else if (category === '' || category === null) {
             res.json({ msg: "Category Name required", status: false });
-        }        
+        }
         else {
             next();
         }
     },
     changeCategoryStatus: (req, res, next) => {
-        const { status , catId } = req.body;
+        const { status, catId } = req.body;
         if (status === '' || status === null) {
             res.json({ msg: "Status required", status: false });
         } else if (catId == '' || catId == null) {
@@ -265,21 +293,21 @@ const validator = {
         }
     },
     addPayment: (req, res, next) => {
-        const { sId,membership,date,desc,amount } = req.body;
+        const { sId, membership, date, desc, amount } = req.body;
         if (sId === '' || sId === null) {
             res.json({ msg: "Supplier required", status: false });
         } else if (membership === '' || membership === null) {
             res.json({ msg: "Membership type required", status: false });
-        } 
+        }
         else if (date === '' || date === null) {
             res.json({ msg: "Date required", status: false });
-        } 
+        }
         else if (desc === '' || desc === null) {
             res.json({ msg: "Description required", status: false });
-        } 
+        }
         else if (amount === '' || amount === null) {
             res.json({ msg: "Amount required", status: false });
-        } 
+        }
         else {
             next();
         }
@@ -293,6 +321,7 @@ const validator = {
             next();
         }
     },
+
 }
 
 module.exports = validator;

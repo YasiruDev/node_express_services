@@ -64,6 +64,34 @@ const customer = {
             }
         });
     },
+    customerDetails: (req, res) => {
+        // console.log("req ---->",req)
+        const cId = req.userId;
+        Customer.customerById({cId},(err, rows) => {
+            if (err) {
+                res.json({msg: err.message, status: false});
+            } else {
+                res.json({msg: 'You have successfully fetch customers', status: true, data: rows});
+            }
+        });
+    },
+    updateCustomer: (req, res) => {
+        const {email,cName} = req.body;
+        const cId = req.userId;
+        const data ={
+            cId,
+            cName,
+            email,
+            updatedAt : new Date()
+        }
+        Customer.editCustomer(data,(err, rows) => {
+            if (err) {
+                res.json({msg: err.message, status: false});
+            } else {
+                res.json({msg: 'You have successfully update customers', status: true, data: rows});
+            }
+        });
+    },
     customerById: (req, res) => {
 
         Customer.customerById(req.query,(err, rows) => {

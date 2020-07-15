@@ -100,6 +100,36 @@ const job = {
             }
         });
     },
+    bidedList: (req, res) => {
+        const cId = req.userId;
+        const {status}=req.query;
+        const data ={
+            cId,
+            status 
+        }
+        console.log("bidedList data ---->",data)
+        Job.bidedList(data, (err, rows) => {
+            if (err) {
+                res.json({ msg: err.message, status: false });
+            } else {
+                res.json({ msg: 'You have successfully fetch bided jobs', status: true, data: rows });
+            }
+        });
+    },
+    rateSupplier: (req, res) => {
+        const cId = req.userId;
+        const {jId,sId,rate}=req.body;
+        const data ={
+            cId,jId,sId,rate
+        }
+        Job.rateSupplier(data, (err, rows) => {
+            if (err) {
+                res.json({ msg: err.message, status: false });
+            } else {
+                res.json({ msg: 'You have successfully rate', status: true, data: rows });
+            }
+        });
+    },
     upload: (req, res) => {
         fileuploder.fileUpload(req, res, process.env.UPLOAD_DIR, process.env.PROFILE_PICTURES, function (err, doc) {
             if (err) {                
@@ -129,6 +159,7 @@ const job = {
             }
         });
     },
+
 
 }
 
